@@ -10,26 +10,38 @@ import UIKit
 import Combine
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     let viewModel = ListViewModel()
-    var subscriptions = [AnyCancellable]()
+    var subscriptions = [AnyCancellable]()//defined here to keep subcription alive
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpTableView()
+        setUpSubcriptions()
+    }
+    
+    /// Sets data source, delegate and registers cell for UITableView
+    func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: PeopleCell.reuseId, bundle: nil), forCellReuseIdentifier: PeopleCell.reuseId)
-        
+    }
+    
+    
+    /// Sets up subscription to View models data
+    func setUpSubcriptions() {
         viewModel.$people
             .receive(on: DispatchQueue.main)
-            .sink { people in
+            .sink { [weak self ] people in
+                guard let self = self else { return }
+                // every time 'people' from our viewmodel is updated we will reload our tablview
                 self.tableView.reloadData()
         }
+            // stor our subcription
         .store(in: &subscriptions)
     }
-
-
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -48,6 +60,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let person = viewModel.people[indexPath.row]
+        //create an alert view which tells us where the person is located
+        let alert = UIAlertController(title: "\(person.name) is located on", message: "\(person.location.name)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
+        
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 330
     }

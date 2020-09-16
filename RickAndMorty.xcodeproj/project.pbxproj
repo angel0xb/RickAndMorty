@@ -19,6 +19,7 @@
 		C21BA10B25115E2600B55D2F /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BA10A25115E2600B55D2F /* Person.swift */; };
 		C21BA10E251163A400B55D2F /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BA10C251163A400B55D2F /* PeopleCell.swift */; };
 		C21BA10F251163A400B55D2F /* PeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C21BA10D251163A400B55D2F /* PeopleCell.xib */; };
+		C2F0A7362511884D0024E4A5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F0A7352511884D0024E4A5 /* UIImageView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		C21BA10A25115E2600B55D2F /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		C21BA10C251163A400B55D2F /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
 		C21BA10D251163A400B55D2F /* PeopleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeopleCell.xib; sourceTree = "<group>"; };
+		C2F0A7352511884D0024E4A5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				C21BA10225115CE400B55D2F /* NetworkManager.swift */,
+				C2F0A7352511884D0024E4A5 /* UIImageView+Extension.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				C21BA10E251163A400B55D2F /* PeopleCell.swift in Sources */,
 				C21BA10625115D0A00B55D2F /* ListViewModel.swift in Sources */,
 				C21BA10325115CE400B55D2F /* NetworkManager.swift in Sources */,
+				C2F0A7362511884D0024E4A5 /* UIImageView+Extension.swift in Sources */,
 				C21BA10925115D7B00B55D2F /* Page.swift in Sources */,
 				C21BA0F225115C4400B55D2F /* ViewController.swift in Sources */,
 				C21BA10B25115E2600B55D2F /* Person.swift in Sources */,

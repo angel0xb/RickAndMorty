@@ -8,16 +8,33 @@
 
 import Foundation
 
+//Model for the the Characters we retrieve from the results of our Page
 class Person: Decodable {
     var name: String
     var status: String
     var species: String
-    var image: String
+    var imageURL: String
+    var location: Location
     
-    init(name: String, status: String, species: String, image: String) {
+    init(name: String, status: String, species: String, imageURL: String, location: Location) {
         self.name = name
         self.status = status
         self.species = species
-        self.image = image
+        self.imageURL = imageURL
+        self.location = location
     }
+    
+    //Using Coding keys because 'image' is technically the url for the image
+    enum CodingKeys: String, CodingKey {
+        case name
+        case status
+        case species
+        case imageURL = "image"
+        case location
+    }
+}
+
+struct Location: Decodable {
+    var name: String
+    var url: String
 }

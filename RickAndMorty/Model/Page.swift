@@ -8,12 +8,8 @@
 
 import Foundation
 
-struct Info: Decodable {
-    var count: Int
-     var pages: Int
-     var next: String?
-     var prev: String?
-}
+// Contains the results from our webrequest
+// conforms to decodable to for us to easily populate object
 class Page: Decodable {
     var info: Info
     var results: [Person]
@@ -22,4 +18,12 @@ class Page: Decodable {
         self.info = info
         self.results = results
     }
+}
+
+//conatins next and prev pages will be used for coninuous scrolling
+struct Info: Decodable {
+    var count: Int
+    var pages: Int
+    var next: String?
+    var prev: String?
 }
