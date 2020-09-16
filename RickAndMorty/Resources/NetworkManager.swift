@@ -11,7 +11,8 @@ import UIKit
 
 // This class is in charge of all of our network requests
 class NetworkManager {
-    
+    //keeps track of which page we are on
+    var info: Info?
     
     /// Makes initial request for characters
     /// - Parameter completion: Gives us a result with  and array of Person if successful or and error if failure
@@ -19,7 +20,8 @@ class NetworkManager {
         let urlString = "https://rickandmortyapi.com/api/character/"
         let url = URL(string: urlString)!
         let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: url) { (data, response, error) in
+        let task = session.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let self = self else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -27,7 +29,32 @@ class NetworkManager {
                     //maake use of json decoder to get our results
                     let decoder = JSONDecoder()
                     let page = try? decoder.decode(Page.self, from: data)
+                    self.info = page?.info//update our info
+                    if let persons = page?.results {
+                        completion(.success(persons))
+                    }
                     
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    //Loads our next batch of characters using our info object
+    func loadNextPage(completion: @escaping (Result<[Person]?,Error>) -> Void) {
+        guard let info = info, let nextPage = info.next else { return }
+        let url = URL(string: nextPage)!
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let self = self else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                if let data = data {
+                    //maake use of json decoder to get our results
+                    let decoder = JSONDecoder()
+                    let page = try? decoder.decode(Page.self, from: data)
+                    self.info = page?.info//update info
                     if let persons = page?.results {
                         completion(.success(persons))
                     }

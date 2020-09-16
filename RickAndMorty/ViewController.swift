@@ -69,10 +69,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
-        
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 330
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        //when we get to our last element use our viewmodel to load our next batch of characters
+        let lastElement = viewModel.people.count - 1
+        if  indexPath.row == lastElement {
+            viewModel.loadNext()
+        }
     }
 }
 
